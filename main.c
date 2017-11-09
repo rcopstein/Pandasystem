@@ -1,12 +1,17 @@
 #include "defaults.c"
 #include "cmd_init.c"
+#include "cmd_load.c"
+#include "cmd_ls.c"
 
 void main()
 {
     // Create a new filesystem
+    
+    cmd_init(FILENAME);
+    cmd_load(FILENAME);
 
-    char* filename = "fat.part";
-    FILE* file = cmd_init(filename);
+    char* buffer = "root/main";
+    cmd_ls(buffer);
 
 }
 

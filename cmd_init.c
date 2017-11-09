@@ -4,7 +4,7 @@
 
 void cmd_init_writeRootDir(FILE* file)
 {
-    dir_entry_t emptyFolder = { "", 0, 0, 0, 0 };
+    dir_entry_t emptyFolder = { "", 0, 0, 0, 1 };
 
     int i;
     for (i = 0; i < 32; ++i) fwrite(&emptyFolder, 32, 1, file);
@@ -38,7 +38,7 @@ void cmd_init_writeBootBlock(FILE* file)
 // Creates a new filesystem for
 // the given filename
 
-FILE* cmd_init(char* filename)
+void cmd_init(char* filename)
 {
     FILE* file = fopen(filename, "w+");
 
@@ -46,5 +46,5 @@ FILE* cmd_init(char* filename)
     cmd_init_writeFAT(file);
     cmd_init_writeRootDir(file);
 
-    return file;
+    fclose(file);
 }

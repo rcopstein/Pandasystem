@@ -13,6 +13,7 @@
     #define SECTOR_SIZE 512
     #define CLUSTER_SIZE 1024
     #define CLUSTER_COUNT 4096
+    #define FILENAME "fat.part"
 
     // Structs
 
