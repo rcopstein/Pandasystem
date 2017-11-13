@@ -46,5 +46,7 @@ void cmd_init(char* filename)
     cmd_init_writeFAT(file);
     cmd_init_writeRootDir(file);
 
+    printf("PandaSystem initialized successfully on \"%s\"\n", filename);
+
     fclose(file);
 }

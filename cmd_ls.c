@@ -27,7 +27,7 @@ void cmd_ls(char* path)
         {
             // Folder not found, return with error message
 
-            printf("Folder not found");
+            printf("Folder \"%s\" not found\n", path);
             return;
         }
 

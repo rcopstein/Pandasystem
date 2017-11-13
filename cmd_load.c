@@ -25,4 +25,8 @@ void cmd_load(char* filename)
 
     load_folder(CLUSTER_SIZE * 9);
 
+    // Print success message
+
+    printf("PandaSystem loaded successfully from \"%s\"\n", filename);
+
 }
