@@ -1,13 +1,26 @@
 #include "defaults.c"
 
 FILE* file;
+uint16_t currentAddress;
 dir_entry_t currentDir[32];
 uint16_t FAT[CLUSTER_COUNT];
 
+void dumpToFile()
+{
+    fseek(file, currentAddress, SEEK_SET);
+    fwrite(currentDir, CLUSTER_SIZE, 1, file);
+}
+
 void load_folder(uint16_t address)
 {
+    currentAddress = address;
     fseek(file, address, SEEK_SET);
     memcpy(&currentDir, file, CLUSTER_SIZE);
+}
+
+void load_root()
+{
+    load_folder(CLUSTER_SIZE * 9);
 }
 
 void cmd_load(char* filename)
@@ -23,7 +36,7 @@ void cmd_load(char* filename)
     // Go to root dir start
     // Copy contents of first directory to currentDir
 
-    load_folder(CLUSTER_SIZE * 9);
+    load_root();
 
     // Print success message
 

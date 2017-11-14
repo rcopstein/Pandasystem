@@ -2,6 +2,10 @@
 
 void cmd_ls(char* path)
 {
+    // Go back to root
+
+    load_root();
+
     // Break path into folders
 
     int i;
@@ -10,6 +14,8 @@ void cmd_ls(char* path)
 
     while (tokens)
     {
+        printf("The token is: %s\n", tokens);
+
         for (i = 0; i < 32; ++i)
         {
             dir_entry_t dir = currentDir[i];
@@ -34,6 +40,17 @@ void cmd_ls(char* path)
         tokens = strtok(NULL, delimiter);
     }
 
+    printf("%d\n", currentAddress);
+
     // We are at the right folder, print files and folders
+
+    for (i = 0; i < 32; i++)
+    {
+        printf("Panda: %s is %d\n", currentDir[i].filename, currentDir[i].attributes);
+        if (currentDir[i].attributes != 0 || strcmp(currentDir[i].filename, "") == 0)
+        {
+            
+        }
+    }
 
 }

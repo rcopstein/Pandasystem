@@ -4,7 +4,7 @@
 
 void cmd_init_writeRootDir(FILE* file)
 {
-    dir_entry_t emptyFolder = { "", 0, 0, 0, 1 };
+    dir_entry_t emptyFolder = { "", 0, 0, 0, 0 };
 
     int i;
     for (i = 0; i < 32; ++i) fwrite(&emptyFolder, 32, 1, file);
