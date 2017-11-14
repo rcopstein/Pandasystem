@@ -1,5 +1,15 @@
 #include "defaults.c"
 
+// Writes the default data block
+
+void cmd_init_writeDataBlock(FILE* file)
+{
+    char fill = 0;
+
+    int i;
+    for (i = 0; i < CLUSTER_SIZE * 4086; ++i) fwrite(&fill, 1, 1, file);
+}
+
 // Writes the default root
 
 void cmd_init_writeRootDir(FILE* file)
@@ -45,6 +55,7 @@ void cmd_init(char* filename)
     cmd_init_writeBootBlock(file);
     cmd_init_writeFAT(file);
     cmd_init_writeRootDir(file);
+    cmd_init_writeDataBlock(file);
 
     printf("PandaSystem initialized successfully on \"%s\"\n", filename);
 

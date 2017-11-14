@@ -2,11 +2,12 @@
 
 void cmd_mkdir(char* arg)
 {
+    char* path = (char*) malloc(sizeof(char) * 50);
+    strcpy(path, arg);
+
     // Get current open spot
 
     load_root();
-    char* path = (char*) malloc(sizeof(char) * 50);
-    strcpy(path, arg);
 
     char* tok;
     char* delimiter = "/";
@@ -45,10 +46,46 @@ void cmd_mkdir(char* arg)
         if (currentDir[i].attributes == 0 &&
             strcmp(currentDir[i].filename, "") == 0)
             {
-                // Encontrou um lugar vazio
+                // Procurar um cluster vazio e
+                // calcula o endereço
 
-                dir_entry_t folder = { prev, 0, 0, 0, 0 };
+                int cluster = findFreeCluster(0);
+                if (cluster == -1)
+                { 
+                    printf("Couldn't create folder \"%s\"\n", prev);
+                    printf("No more clusters available\n"); 
+                    return;
+                }
+
+                uint16_t block_address = cluster * CLUSTER_SIZE;
+                printf("The address is %d\n", block_address);
+
+                // Cria a pasta nova
+
+                dir_entry_t folder;
+
+                folder.first_block = block_address;
+                strcpy(&folder.filename, prev);
+                folder.attributes = 0;
+                folder.size = 0;
+
+                int j;
+                for (j = 0; j < 7; ++j) folder.reserved[i] = 0;
+
+                printf("The name is %s and the address is %d\n", folder.filename, folder.first_block);
+
                 currentDir[i] = folder;
+
+                // Escreve entrada na FAT
+
+                FAT[cluster] = block_address;
+
+                // Escreve a região de memória apontada
+
+                write_empty_folder(block_address);
+
+                // Escreve as mudanças no arquivo
+
                 dumpToFile();
 
                 return;
