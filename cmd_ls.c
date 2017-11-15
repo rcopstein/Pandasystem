@@ -16,17 +16,15 @@ void cmd_ls(char* path)
 
     while (tokens)
     {
-        printf("The token is: %s\n", tokens);
-
         for (i = 0; i < 32; ++i)
         {
             dir_entry_t dir = currentDir[i];
 
-            if (strcmp(dir.filename, tokens) == 0 && dir.attributes == 0)
+            if (currentDir[i].attributes == 0 &&
+                strcmp(dir.filename, tokens) == 0 && dir.attributes == 0)
             {
                 // Found file, load folder
 
-                printf("Loading address %d\n", dir.first_block);
                 load_folder(dir.first_block);
                 break;
             }
@@ -36,7 +34,7 @@ void cmd_ls(char* path)
         {
             // Folder not found, return with error message
 
-            printf("Folder \"%s\" not found\n", path);
+            printf("Folder \"%s\" not found\n", tokens);
             return;
         }
 

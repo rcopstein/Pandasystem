@@ -22,7 +22,8 @@ void cmd_unlink(char* arg)
 
         for (i = 0; i < 32; ++i)
         {
-            if (strcmp(currentDir[i].filename, prev) == 0)
+            if (currentDir[i].attributes == 0 &&
+                strcmp(currentDir[i].filename, prev) == 0)
             {
                 load_folder(currentDir[i].first_block);
                 flag = 1;
@@ -45,8 +46,6 @@ void cmd_unlink(char* arg)
     int i;
     for (i = 0; i < 32; ++i)
     {
-        printf("Found %s\n", currentDir[i].filename);
-
         if (strcmp(currentDir[i].filename, prev) == 0)
             {
                 // Se for um diretório
@@ -100,6 +99,8 @@ void cmd_unlink(char* arg)
                 {
                     // Deletar o arquivo
 
+                    printf("Deleted \"%s\"\n", currentDir[i].filename);
+
                     char* emptyFilename = "";
                     strcpy(currentDir[i].filename, emptyFilename);
                     currentDir[i].attributes = 0;
@@ -107,6 +108,7 @@ void cmd_unlink(char* arg)
                     FAT[currentDir[i].first_block / CLUSTER_SIZE] = 0;
 
                     dumpToFile();
+
                     return;
                 }
             }
@@ -114,6 +116,6 @@ void cmd_unlink(char* arg)
 
     // Se chegamos aqui, não encontramos o item
 
-    printf("Couldn't find item \"%s\"\n", prev);
+    printf("Couldn't delete item \"%s\"\n", prev);
 
 }

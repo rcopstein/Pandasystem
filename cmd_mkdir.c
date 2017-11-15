@@ -60,7 +60,6 @@ void cmd_mkdir(char* arg)
                 }
 
                 uint16_t block_address = cluster * CLUSTER_SIZE;
-                printf("The address is %d\n", block_address);
 
                 // Cria a pasta nova
 
@@ -73,8 +72,6 @@ void cmd_mkdir(char* arg)
 
                 int j;
                 for (j = 0; j < 7; ++j) folder.reserved[i] = 0;
-
-                printf("The name is %s and the address is %d\n", folder.filename, folder.first_block);
 
                 currentDir[i] = folder;
 
@@ -89,6 +86,8 @@ void cmd_mkdir(char* arg)
                 // Escreve as mudanças no arquivo
 
                 dumpToFile();
+
+                printf("Created \"%s\" at address %d\n", folder.filename, folder.first_block);
 
                 return;
             }

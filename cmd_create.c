@@ -22,7 +22,8 @@ void cmd_create(char* arg)
 
         for (i = 0; i < 32; ++i)
         {
-            if (strcmp(currentDir[i].filename, prev) == 0)
+            if (currentDir[i].attributes == 0 &&
+                strcmp(currentDir[i].filename, prev) == 0)
             {
                 load_folder(currentDir[i].first_block);
                 flag = 1;
@@ -74,8 +75,6 @@ void cmd_create(char* arg)
                 int j;
                 for (j = 0; j < 7; ++j) file.reserved[i] = 0;
 
-                printf("The name is %s and the address is %d\n", file.filename, file.first_block);
-
                 currentDir[i] = file;
 
                 // Escreve entrada na FAT
@@ -89,6 +88,8 @@ void cmd_create(char* arg)
                 // Escreve as mudanças no arquivo
 
                 dumpToFile();
+
+                printf("\"%s\" created successfully!\n", file.filename);
 
                 return;
             }

@@ -61,7 +61,6 @@ void cmd_read(char* arg)
     // Se chegamos aqui, não tem mais espaço
     // pra acomodar ninguém
 
-    printf("Couldn't create file \"%s\"\n", prev);
-    printf("Not enough espace\n");
+    printf("Couldn't read file \"%s\"\n", prev);
 
 }

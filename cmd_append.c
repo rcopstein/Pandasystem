@@ -31,7 +31,8 @@ void cmd_append(char* arg)
 
         for (i = 0; i < 32; ++i)
         {
-            if (strcmp(currentDir[i].filename, prev) == 0)
+            if (currentDir[i].attributes == 0 &&
+                strcmp(currentDir[i].filename, prev) == 0)
             {
                 load_folder(currentDir[i].first_block);
                 flag = 1;
@@ -67,6 +68,10 @@ void cmd_append(char* arg)
             content = "\0";
             fwrite(content, sizeof(char), 1, file);
 
+            //
+
+            printf("Content appended successfully!\n");
+
             return;
         }
     }
@@ -74,7 +79,6 @@ void cmd_append(char* arg)
     // Se chegamos aqui, não tem mais espaço
     // pra acomodar ninguém
 
-    printf("Couldn't create file \"%s\"\n", prev);
-    printf("Not enough espace\n");
+    printf("Couldn't append to file \"%s\"\n", prev);
 
 }
