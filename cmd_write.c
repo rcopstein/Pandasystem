@@ -8,6 +8,9 @@ void cmd_write(char* arg)
     char* content = strtok(arg, delimiter);
     content = strtok(NULL, delimiter);
 
+    char content2[50];
+    strcpy(content2, content);
+
     char* path = strtok(NULL, delimiter); // Ignore o espaço
 
     delimiter = " ";
@@ -57,7 +60,7 @@ void cmd_write(char* arg)
         if (strcmp(currentDir[i].filename, prev) == 0)
             {
                 fseek(file, currentDir[i].first_block, SEEK_SET);
-                fwrite(content, strlen(content) * sizeof(char), 1, file);
+                fwrite(content2, strlen(content2) * sizeof(char), 1, file);
 
                 content = "\0";
                 fwrite(content, sizeof(char), 1, file);
