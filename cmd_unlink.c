@@ -2,6 +2,8 @@
 
 void cmd_unlink(char* arg)
 {
+    if (!loaded) { printf("Please load a filesystem first\n"); return; }
+
     char* path = (char*) malloc(sizeof(char) * 50);
     strcpy(path, arg);
 

@@ -2,6 +2,8 @@
 
 void cmd_ls(char* path)
 {
+    if (!loaded) { printf("Please load a filesystem first\n"); return; }
+
     // Go back to root
 
     load_root();

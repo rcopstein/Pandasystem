@@ -2,6 +2,8 @@
 
 void cmd_write(char* arg)
 {
+    if (!loaded) { printf("Please load a filesystem first\n"); return; }
+
     char* delimiter = "\"";
     char* content = strtok(arg, delimiter);
     content = strtok(NULL, delimiter);

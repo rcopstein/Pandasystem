@@ -1,5 +1,7 @@
 #include "defaults.c"
 
+int loaded = 0;
+
 FILE* file;
 uint16_t currentAddress;
 dir_entry_t currentDir[32];
@@ -77,6 +79,7 @@ void cmd_load(char* filename)
 
     // Print success message
 
+    loaded = 1;
     printf("PandaSystem loaded successfully from \"%s\"\n", filename);
 
 }
