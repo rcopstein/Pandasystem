@@ -30,7 +30,7 @@ void main()
 
     // Prompt the user
 
-    char input[50];
+    char input[78662]; 
     char buffer[] = "root/main";
 
     while (strcmp(input, "exit") != 0)
@@ -44,9 +44,9 @@ void main()
         else if (strcmp(input, "mkdir") == 0) { scanf("%s", buffer); cmd_mkdir(buffer); }
         else if (strcmp(input, "create") == 0) { scanf("%s", buffer); cmd_create(buffer); }
         else if (strcmp(input, "unlink") == 0) { scanf("%s", buffer); cmd_unlink(buffer); }
-        else if (strcmp(input, "write") == 0) { fgets(buffer, 50, stdin); cmd_write(buffer); }
+        else if (strcmp(input, "write") == 0) { fgets(buffer, 78662, stdin); cmd_write(buffer); }
         else if (strcmp(input, "read") == 0) { scanf("%s", buffer); cmd_read(buffer); }
-        else if (strcmp(input, "append") == 0) { fgets(buffer, 50, stdin); cmd_append(buffer); }
+        else if (strcmp(input, "append") == 0) { fgets(buffer, 78662, stdin); cmd_append(buffer); }
         else printf("Command \"%s\" not found\n", input);
 
     }
