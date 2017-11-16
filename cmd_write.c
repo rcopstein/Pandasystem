@@ -8,7 +8,7 @@ void cmd_write(char* arg)
     char* content = strtok(arg, delimiter);
     content = strtok(NULL, delimiter);
 
-    char content2[50];
+    char content2[1024];
     strcpy(content2, content);
 
     char* path = strtok(NULL, delimiter); // Ignore o espaço
