@@ -62,7 +62,6 @@ void cmd_unlink(char* arg)
 
                     for (j = 0; j < 32; ++j)
                     {
-                        printf("\tFound %s\n", currentDir[j].filename);
                         if (currentDir[j].attributes != 0 ||
                             strcmp(currentDir[j].filename, "") != 0)
                             {
@@ -84,9 +83,6 @@ void cmd_unlink(char* arg)
 
                         char* emptyFilename = "";
                         strcpy(currentDir[i].filename, emptyFilename);
-
-                        printf("%s is the name\n", currentDir[i].filename);
-                        printf("%d is the attribute\n", currentDir[i].attributes);
 
                         FAT[currentDir[i].first_block / CLUSTER_SIZE] = 0;
                         dumpToFile();
