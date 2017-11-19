@@ -9,14 +9,19 @@ uint16_t FAT[CLUSTER_COUNT];
 
 // Find free address in FAT
 
-int findFreeCluster(int startingPoint)
+int findFreeCluster()
 {
     int i;
     for (i = 0; i < CLUSTER_COUNT; ++i)
     {
-        if (FAT[(i + startingPoint % CLUSTER_COUNT)] == 0) return i;
+        if (FAT[(i)] == 0x0000) 
+        {
+            printf("Found free cluster %d\n", i);
+            return i;
+        }
     }
 
+    printf("Didn't find free cluster %d\n", i);
     return -1;
 }
 

@@ -51,7 +51,7 @@ void cmd_mkdir(char* arg)
                 // Procurar um cluster vazio e
                 // calcula o endereço
 
-                int cluster = findFreeCluster(0);
+                int cluster = findFreeCluster();
                 if (cluster == -1)
                 { 
                     printf("Couldn't create folder \"%s\"\n", prev);
@@ -60,20 +60,21 @@ void cmd_mkdir(char* arg)
                 }
 
                 uint16_t block_address = cluster * CLUSTER_SIZE;
+                printf("%d\n", block_address);
 
                 // Cria a pasta nova
 
                 dir_entry_t folder;
 
                 folder.first_block = block_address;
-                strcpy(&folder.filename, prev);
+                strcpy(folder.filename, prev);
                 folder.attributes = 0;
                 folder.size = 0;
 
                 int j;
-                for (j = 0; j < 7; ++j) folder.reserved[i] = 0;
+                for (j = 0; j < 7; ++j) folder.reserved[j] = 0;
 
-                currentDir[i] = folder;
+                memcpy(&currentDir[i], &folder, sizeof(dir_entry_t));
 
                 // Escreve entrada na FAT
 
