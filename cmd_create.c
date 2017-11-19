@@ -73,7 +73,7 @@ void cmd_create(char* arg)
                 file.size = 0;
 
                 int j;
-                for (j = 0; j < 7; ++j) file.reserved[i] = 0;
+                for (j = 0; j < 7; ++j) file.reserved[j] = 0;
 
                 currentDir[i] = file;
 
