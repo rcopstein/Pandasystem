@@ -50,7 +50,7 @@ void cmd_ls(char* path)
             if (currentDir[i].attributes == 1) printf("File: ");
             if (currentDir[i].attributes == 0) printf("Folder: ");
 
-            printf("%s\n", currentDir[i].filename);
+            printf("%s %d bytes\n", currentDir[i].filename, currentDir[i].size);
         }
     }
 

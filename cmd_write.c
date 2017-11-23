@@ -59,17 +59,29 @@ void cmd_write(char* arg)
     for (i = 0; i < 32; ++i)
     {
         if (strcmp(currentDir[i].filename, prev) == 0)
-            {
-                fseek(file, currentDir[i].first_block, SEEK_SET);
-                fwrite(content2, strlen(content2) * sizeof(char), 1, file);
+        {
+            if (strlen(content2) > CLUSTER_SIZE) {
 
-                content = "\0";
-                fwrite(content, sizeof(char), 1, file);
-
-                printf("Written to \"%s\" successfully!\n", currentDir[i].filename);
-
+                printf("Size exceeded!\n");
                 return;
+
             }
+
+            fseek(file, currentDir[i].first_block, SEEK_SET);
+            fwrite(content2, strlen(content2) * sizeof(char), 1, file);
+
+            content = "\0";
+            fwrite(content, sizeof(char), 1, file);
+
+            int size = strlen(content2) - currentDir[i].size;
+            currentDir[i].size = strlen(content2);
+            dumpToFile();
+            
+            WalkAndIncrease(size, path);
+
+            printf("Written to \"%s\" successfully!\n", currentDir[i].filename);
+            return;
+        }
     }
 
     // Se chegamos aqui, não tem mais espaço

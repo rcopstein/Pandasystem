@@ -65,6 +65,40 @@ void load_root()
     load_folder(CLUSTER_SIZE * 9);
 }
 
+// Walk a path and increase size
+
+char delimiter = '/';
+void WalkAndIncrease2(int size, char* token, char* path) {
+
+    if (token == NULL) return;
+
+    int i;
+    int flag = 0;
+
+    for (i = 0; i < 32; ++i)
+    {
+        if (strcmp(currentDir[i].filename, token) == 0)
+        {
+            currentDir[i].size += size;
+            printf("%s %d\n", token, currentDir[i].size);
+            dumpToFile();
+
+            load_folder(currentDir[i].first_block);
+            WalkAndIncrease2(size, strtok(NULL, &delimiter), path);
+            break;
+        }
+    }
+
+}
+void WalkAndIncrease(int size, char* path) {
+
+    load_root();
+    char* token = strtok(path, &delimiter);
+
+    WalkAndIncrease2(size, token, path);
+
+}
+
 // Load the file into memory
 
 void cmd_load(char* filename)

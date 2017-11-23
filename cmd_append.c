@@ -57,6 +57,15 @@ void cmd_append(char* arg)
     {
         if (strcmp(currentDir[i].filename, prev) == 0)
         {
+            if (currentDir[i].size + strlen(content) > CLUSTER_SIZE) {
+
+                printf("Size exceeded!\n");
+                return;
+
+            }
+
+            int size = strlen(content);
+
             fseek(file, currentDir[i].first_block, SEEK_SET);
             while (fgetc(file) != '\0') {}
             fseek(file, -1, SEEK_CUR);
@@ -68,10 +77,14 @@ void cmd_append(char* arg)
             content = "\0";
             fwrite(content, sizeof(char), 1, file);
 
+            currentDir[i].size += size;
+            dumpToFile();
+
+            WalkAndIncrease(size, path);
+
             //
 
             printf("Content appended successfully!\n");
-
             return;
         }
     }
