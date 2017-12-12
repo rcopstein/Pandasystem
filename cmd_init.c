@@ -14,9 +14,10 @@ void cmd_init_writeDataBlock(FILE* file)
 
 void cmd_init_writeRootDir(FILE* file)
 {
-    dir_entry_t emptyFolder = { "", 0, 0, 0, 0 };
-
     int i;
+    dir_entry_t emptyFolder = { 0, 0, 0, "", 0 };
+    for (i = 0; i < 7; ++i) emptyFolder.reserved[i] = 0;
+
     for (i = 0; i < 32; ++i) fwrite(&emptyFolder, 32, 1, file);
 }
 

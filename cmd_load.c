@@ -45,7 +45,8 @@ void dumpToFile()
 void write_empty_folder(uint16_t address)
 {
     int i;
-    dir_entry_t emptyFolder = { "", 0, 0, 0, 0 };
+    dir_entry_t emptyFolder = { 0, 0, 0, "", 0 };
+    for (i = 0; i < 7; ++i) emptyFolder.reserved[i] = 0;
 
     fseek(file, address, SEEK_SET);
     for (i = 0; i < 32; ++i) fwrite(&emptyFolder, 32, 1, file);

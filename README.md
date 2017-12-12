@@ -1,10 +1,7 @@
 # PandaSystem V1.0
 ### Create by Rafael Copstein and João Pedro Pianta
 
-![Panda](./Panda.png)
-
-Welcome to PandaSystem V1.0. This is your quick start guide
-to an amazing filesystem experience.
+PandaSystem is a Filesystem emulator designed to study the FAT file system architecture.
 
 To get started, use *init* to create a new filesystem file.
 Next, use *load* to load it into memory (not all of it, don't worry).
